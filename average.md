@@ -44,26 +44,21 @@ def calcular_media():
 
     soma = sum(lista)
     media = soma / len(lista)
-    print("A média é:", round(media, 2))
+    print(f"A média é: {media:.2f}")
 
 calcular_media()
-
 ```
 
 #### JavaScript
 
 ```javascript
 function calcularMedia() {
-  var numeros = prompt("Insira a lista de números (separados por vírgula):");
-  var lista = numeros.split(",").map(Number);
-  
-  var soma = 0;
-  for (var i = 0; i < lista.length; i++) {
-    soma += lista[i];
-  }
-  
-  var media = soma / lista.length;
-  console.log("A média é: " + media.toFixed(2));
+  const numeros = prompt("Insira a lista de números (separados por vírgula):");
+  const lista = numeros.split(",").map(Number);
+
+  const soma = lista.reduce((acc, num) => acc + num, 0);
+  const media = soma / lista.length;
+  console.log(`A média é: ${media.toFixed(2)}`);
 }
 
 calcularMedia();
@@ -86,22 +81,16 @@ class Program
         Console.Write("Insira a lista de números (separados por vírgula): ");
         string numerosInput = Console.ReadLine();
 
-        string[] numerosStr = numerosInput.Split(',');
-        double[] numeros = new double[numerosStr.Length];
-
-        for (int i = 0; i < numerosStr.Length; i++)
-        {
-            numeros[i] = Convert.ToDouble(numerosStr[i]);
-        }
+        double[] numeros = Array.ConvertAll(numerosInput.Split(','), double.Parse);
 
         double soma = 0;
-        for (int i = 0; i < numeros.Length; i++)
+        foreach (double num in numeros)
         {
-            soma += numeros[i];
+            soma += num;
         }
 
         double media = soma / numeros.Length;
-        Console.WriteLine("A média é: " + media.ToString("F2"));
+        Console.WriteLine($"A média é: {media:F2}");
     }
 }
 
@@ -111,6 +100,7 @@ class Program
 #### Java
 ```java
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -123,25 +113,17 @@ public class Main {
         System.out.print("Insira a lista de números (separados por vírgula): ");
         String numerosInput = scanner.nextLine();
 
-        String[] numerosStr = numerosInput.split(",");
-        double[] numeros = new double[numerosStr.length];
+        double[] numeros = Arrays.stream(numerosInput.split(","))
+                                 .mapToDouble(Double::parseDouble)
+                                 .toArray();
 
-        for (int i = 0; i < numerosStr.length; i++) {
-            numeros[i] = Double.parseDouble(numerosStr[i]);
-        }
-
-        double soma = 0;
-        for (double numero : numeros) {
-            soma += numero;
-        }
-
+        double soma = Arrays.stream(numeros).sum();
         double media = soma / numeros.length;
-        System.out.printf("A média é: %.2f\n", media);
-        
+        System.out.printf("A média é: %.2f%n", media);
+
         scanner.close();
     }
 }
-
 ```
 
 
